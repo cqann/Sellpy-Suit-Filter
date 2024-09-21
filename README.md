@@ -24,6 +24,7 @@
     -   [Running the Script](#running-the-script)
     -   [Output Files](#output-files)
     -   [Troubleshooting](#troubleshooting)
+    -   [Contributing](#contributing)
     -   [License](#license)
 
 ## Requirements
@@ -31,13 +32,14 @@
 Before using the Sellpy Scraper, ensure you have the following:
 
 -   **Operating System**: Windows, macOS, or Linux
--   **Python**: Version 3.7 or higher
+-   **Python**: Version 3.10 or higher
+-   **Pipenv**: Python dependency manager
 -   **Internet Connection**: Required for accessing Sellpy and downloading necessary packages
 -   **Web Browser**: Google Chrome
 
 ## Installation
 
-Follow these steps to set up and run the Sellpy Scraper on your machine:
+Follow these steps to set up and run the Sellpy Scraper on your machine using `pipenv`:
 
 ### 1. Install Python
 
@@ -49,53 +51,92 @@ If you don't have Python installed:
     -   **macOS**: Use the installer or install via Homebrew with `brew install python`.
     -   **Linux**: Install via your distribution's package manager, e.g., `sudo apt-get install python3`.
 
-### 2. Verify Python Installation
+### 2. Install Pipenv
 
-Open your command prompt (Windows) or terminal (macOS/Linux) and type:
+`pipenv` is a tool that combines `pip` and virtual environments for managing project dependencies.
 
+-   **Install Pipenv**:
+
+    ```bash
+    pip install pipenv
+    ```
+
+    _If you encounter permission issues, you might need to use `pip install --user pipenv` or run the command with `sudo` on Unix-based systems._
+
+-   **Verify Installation**:
+
+    ```bash
+    pipenv --version
+    ```
+
+    You should see output similar to:
+
+    ```
+    pipenv, version 2023.11.17
+    ```
+
+### 3. Clone or Download the Repository
+
+If you haven't already, clone the repository or download the script files to your local machine.
+
+```bash
+git clone https://github.com/yourusername/sellpy-scraper.git
 ```
-python --version
+
+_Replace `yourusername` with your actual GitHub username if applicable._
+
+### 4. Navigate to the Project Directory
+
+```bash
+cd sellpy-scraper
 ```
 
-You should see output similar to:
+### 5. Install Required Python Packages with Pipenv
 
-```
-Python 3.9.7
-```
+The scraper relies on several Python libraries. Use `pipenv` to install them:
 
-### 3. Install Required Python Packages
+1. **Initialize Pipenv Environment**:
 
-The scraper relies on several Python libraries. Install them using pip:
+    ```bash
+    pipenv --python 3.11
+    ```
 
-Open Command Prompt or Terminal.
-Run the following command:
+2. **Install Dependencies**:
 
-```
-pip install selenium webdriver-manager beautifulsoup4
-```
+    ```bash
+    pipenv install selenium webdriver-manager beautifulsoup4
+    ```
 
--   selenium: Automates web browser interaction.
--   webdriver-manager: Automatically manages browser drivers.
--   beautifulsoup4: Parses HTML and XML documents.
+    - **selenium**: Automates web browser interaction.
+    - **webdriver-manager**: Automatically manages browser drivers.
+    - **beautifulsoup4**: Parses HTML and XML documents.
 
-### 4. Download Google Chrome
+3. **Activate the Virtual Environment**:
 
-Ensure you have the latest version of Google Chrome installed, as Selenium uses it for web interactions.
+    ```bash
+    pipenv shell
+    ```
+
+    Your terminal prompt should now indicate that you're inside the `pipenv` virtual environment.
+
+### 6. Download Google Chrome
+
+Ensure you have the latest version of [Google Chrome](https://www.google.com/chrome/) installed, as Selenium uses it for web interactions.
 
 ## Configuration
 
-The scraper uses a configuration file (config.txt) to define its behavior. Follow these steps to set it up:
+The scraper uses a configuration file (`config.txt`) to define its behavior. Follow these steps to set it up:
 
-### 1. Create config.txt
+### 1. Create `config.txt`
 
-In the same directory as your Python script, create a file named config.txt. You can use any text editor (e.g., Notepad, TextEdit, VS Code).
+In the same directory as your Python script, create a file named `config.txt`. You can use any text editor (e.g., Notepad, TextEdit, VS Code).
 
 ### 2. Define Configuration Parameters
 
-Add the following content to config.txt:
+Add the following content to `config.txt`:
 
-```
-initial_url=https://www.sellpy.se/search/Man/Kl%C3%A4der/Kavajer-%26-Kostymer/Kostymer?minPrice=200&material=Ull&material=Bomull&material=Linne&material=Kashmir&material=Mohair&material=Silke&material=Merinoull&color=Bl%C3%A5&color=Gr%C3%A5&brand=-H%26M&brand=-Zara+Man&brand=-Dressmann&brand=-Bl%C3%A4ck&brand=-Zara&brand=-GANT&brand=-H%26M+Man&brand=-Jack+%26+Jones&brand=-Premium+by+Jack+%26+Jones&brand=-Suitsupply&brand=-ESPRIT&brand=-Scotch+%26+Soda&brand=-H%26M+Modern+Classic&brand=-Riley&brand=-Bruun...
+```ini
+initial_url=https://www.sellpy.se/search/Man/Kl%C3%A4der/Kavajer-%26-Kostymer/Kostymer?minPrice=200&material=Ull&material=Bomull&material=Linne&material=Kashmir&material=Mohair&material=Silke&material=Merinoull&color=Bl%C3%A5&color=Gr%C3%A5&brand=-H%26M&brand=-Zara+Man&brand=-Dressmann&brand=-Bl%C3%A4ck&brand=-Zara&brand=-GANT&brand=-H%26M+Man&brand=-Jack+%26+Jones&brand=-Premium+by+Jack+%26+Jones&brand=-Suitsupply&brand=-ESPRIT&brand=-Scotch+%26+Soda&brand=-H%26M+Modern+Classic&brand=-Riley&brand=-Bruuns+Bazaar&brand=-Calvin+Klein&condition=Mycket+bra&condition=Bra&condition=Nytt
 # n_pages=23  # Optional: Uncomment and set if you prefer a fixed number of pages
 arm_range=67,69
 waist_range=86,92
@@ -105,50 +146,46 @@ leg_range=83,90
 
 ### 3. Configuration Parameters Explained
 
--   initial_url: The starting URL for the scraper. This URL targets men's suits and jackets with specific filters applied (e.g., price, material, color, brand, condition).
+-   **initial_url**: The starting URL for the scraper. This URL targets men's suits and jackets with specific filters applied (e.g., price, material, color, brand, condition).
+-   **n_pages** (Optional):
 
--   n_pages (Optional):
+    -   **Purpose**: Sets a maximum number of pages to scrape.
+    -   **Usage**: If you prefer the scraper to stop after a certain number of pages, uncomment this line and set your desired number.
+    -   **Example**: `n_pages=10` will limit the scraper to 10 pages.
 
-    -   Purpose: Sets a maximum number of pages to scrape.
-    -   Usage: If you prefer the scraper to stop after a certain number of pages, uncomment this line and set your desired number.
-    -   Example: n_pages=10 will limit the scraper to 10 pages.
+-   **Measurement Ranges**:
+    -   **arm_range**: Minimum and maximum acceptable arm measurements (e.g., `67,69`).
+    -   **waist_range**: Minimum and maximum acceptable waist measurements.
+    -   **shoulder_range**: Minimum and maximum acceptable shoulder measurements.
+    -   **leg_range**: Minimum and maximum acceptable leg measurements.
 
--   Measurement Ranges:
-    -   arm_range: Minimum and maximum acceptable arm measurements (e.g., 67,69).
-    -   waist_range: Minimum and maximum acceptable waist measurements.
-    -   shoulder_range: Minimum and maximum acceptable shoulder measurements.
-    -   leg_range: Minimum and maximum acceptable leg measurements.
-
-Note: Ensure there are no spaces around the commas in the range values.
+**Note**: Ensure there are no spaces around the commas in the range values.
 
 ## Running the Script
 
 Follow these steps to execute the Sellpy Scraper:
 
-### 1. Prepare the Script
+### 1. Activate the Pipenv Virtual Environment
 
-Ensure you have the Python script (e.g., sellpy_scraper.py) and config.txt in the same directory.
+If you haven't already activated the virtual environment, do so now:
 
-### 2. Open Command Prompt or Terminal
+```bash
+pipenv shell
+```
 
-Navigate to the directory containing the script and configuration file.
+### 2. Prepare the Script
 
--   **Windows**:
-    -   Open Command Prompt.
-    -   Use `cd` to navigate, e.g., `cd C:\Users\YourName\Documents\SellpyScraper`.
--   **macOS/Linux**:
-    -   Open Terminal.
-    -   Use `cd` to navigate, e.g., `cd /Users/YourName/Documents/SellpyScraper`.
+Ensure you have the Python script (e.g., `sellpy_scraper.py`) and `config.txt` in the same directory.
 
 ### 3. Run the Script
 
 Execute the following command:
 
-```
+```bash
 python sellpy_scraper.py
 ```
 
-Note: Replace `sellpy_scraper.py` with the actual name of your Python script if different.
+**Note**: Replace `sellpy_scraper.py` with the actual name of your Python script if different.
 
 ### 4. Monitor Progress
 
@@ -167,26 +204,22 @@ The scraper generates two key output files:
 
 -   **Purpose**: Stores URLs of articles that meet the specified measurement criteria.
 -   **Usage**: Review this file to see all the products that fit your requirements.
-
-Example Entry:
-
-```
-https://www.sellpy.se/product/12345
-```
+-   **Example Entry**:
+    ```
+    https://www.sellpy.se/product/12345
+    ```
 
 ### 2. `checked_articles.txt`
 
 -   **Purpose**: Keeps track of all processed article URLs to prevent reprocessing in future runs.
 -   **Usage**: The scraper references this file to skip already checked articles, saving time and resources.
+-   **Example Entry**:
+    ```
+    https://www.sellpy.se/product/12345
+    https://www.sellpy.se/product/67890
+    ```
 
-Example Entry:
-
-```
-https://www.sellpy.se/product/12345
-https://www.sellpy.se/product/67890
-```
-
-Note: Both files are automatically created in the script's directory if they don't exist.
+**Note**: Both files are automatically created in the script's directory if they don't exist.
 
 ## Troubleshooting
 
@@ -194,37 +227,46 @@ If you encounter issues while using the Sellpy Scraper, consider the following s
 
 ### 1. Python Not Found
 
--   **Issue**: Running python results in a "command not found" or similar error.
+-   **Issue**: Running `python` results in a "command not found" or similar error.
 -   **Solution**: Ensure Python is installed and added to your system's PATH.
     -   **Windows**: Reinstall Python and check "Add Python to PATH" during installation.
     -   **macOS/Linux**: Verify Python installation with `python3 --version` and use `python3` instead of `python` if necessary.
 
 ### 2. Missing Python Packages
 
--   **Issue**: Errors indicating missing modules like selenium or beautifulsoup4.
--   **Solution**: Install the required packages using pip:
+-   **Issue**: Errors indicating missing modules like `selenium` or `beautifulsoup4`.
+-   **Solution**: Install the required packages using `pipenv`:
 
-```
-pip install selenium webdriver-manager beautifulsoup4
-```
+    ```bash
+    pipenv install selenium webdriver-manager beautifulsoup4
+    ```
 
 ### 3. ChromeDriver Issues
 
 -   **Issue**: Errors related to ChromeDriver compatibility.
 -   **Solution**:
     -   Ensure you have the latest version of Google Chrome installed.
-    -   The webdriver-manager package should automatically handle ChromeDriver updates. If issues persist, consider manually updating ChromeDriver or verifying its installation.
+    -   The `webdriver-manager` package should automatically handle ChromeDriver updates. If issues persist, consider manually updating ChromeDriver or verifying its installation.
 
 ### 4. Script Not Navigating Pages Correctly
 
 -   **Issue**: The scraper stops prematurely or doesn't navigate to the next page.
 -   **Solution**:
-    -   Verify the `initial_url` in config.txt is correctly formatted.
-    -   Ensure the termination message "Finns inga fler varor som matchar dina aktiva filter" hasn't changed on the website. If it has, update the script accordingly.
+    -   Verify the `initial_url` in `config.txt` is correctly formatted.
+    -   Ensure the termination message `"Finns inga fler varor som matchar dina aktiva filter"` hasn't changed on the website. If it has, update the script accordingly.
 
 ### 5. Measurement Extraction Issues
 
 -   **Issue**: Articles are skipped despite meeting criteria.
 -   **Solution**:
-    -   Check that the measurement ranges in config.txt are correctly defined.
-    -   Ensure the website's structure hasn't changed.
+    -   Check that the measurement ranges in `config.txt` are correctly defined.
+    -   Ensure the website's structure hasn't changed, affecting how measurements are extracted.
+
+### 6. Browser Window Not Closing
+
+-   **Issue**: After stopping the script, the browser window remains open.
+-   **Solution**: The script uses a `try...finally` block to ensure the browser closes. If interrupted forcefully, you may need to manually close the browser.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
