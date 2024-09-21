@@ -1,0 +1,6 @@
+initial_url=https://www.sellpy.se/search/Man/Kl%C3%A4der/Kavajer-%26-Kostymer/Kostymer?minPrice=200&material=Ull&material=Bomull&material=Linne&material=Kashmir&material=Mohair&material=Silke&material=Merinoull&color=Bl%C3%A5&brand=-H%26M&brand=-Zara+Man&brand=-Dressmann&brand=-Bl%C3%A4ck&brand=-Zara&brand=-GANT&brand=-H%26M+Man&brand=-Jack+%26+Jones&brand=-Premium+by+Jack+%26+Jones&brand=-Suitsupply&brand=-ESPRIT&brand=-Scotch+%26+Soda&brand=-H%26M+Modern+Classic&brand=-Riley&brand=-Bruuns+Bazaar&brand=-Calvin+Klein&condition=Mycket+bra&condition=Bra&condition=Nytt
+#n_pages=23
+arm_range=67,69
+waist_range=86,92
+shoulder_range=48,49
+leg_range=83,90
