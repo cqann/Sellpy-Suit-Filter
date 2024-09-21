@@ -146,11 +146,11 @@ leg_range=83,90
 
 ### 3. Configuration Parameters Explained
 
--   **initial_url**: The starting URL for the scraper. This URL targets men's suits and jackets with specific filters applied (e.g., price, material, color, brand, condition).
+-   **initial_url**: The starting URL for the scraper. This URL targets men's suits and jackets with specific filters applied (e.g., price, material, color, brand, condition). The initial_url can easily be created by going over into sellpy and browsing suits and adding your desired filter.
 -   **n_pages** (Optional):
 
     -   **Purpose**: Sets a maximum number of pages to scrape.
-    -   **Usage**: If you prefer the scraper to stop after a certain number of pages, uncomment this line and set your desired number.
+    -   **Usage**: If you prefer the scraper to stop after a certain number of pages, uncomment this line and set your desired number. Comment with "#"
     -   **Example**: `n_pages=10` will limit the scraper to 10 pages.
 
 -   **Measurement Ranges**:
