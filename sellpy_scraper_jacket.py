@@ -71,7 +71,7 @@ try:
 except ValueError as e:
     raise ValueError(f"Error parsing ranges: {e}")
 
-ranges = [arm_range, waist_range, shoulder_range, leg_range]
+ranges = [arm_range, shoulder_range]
 
 # Load previously fit and checked articles
 fit_articles = load_urls(FIT_ARTICLES_FILE)
@@ -145,13 +145,13 @@ try:
 
             measurements = sizes
 
-            if len(measurements) != 4:
+            if len(measurements) != 2:
                 print(f"Skipping article due to insufficient measurements: {article_url}")
                 continue  # Skip if not exactly 4 measurements found
 
             # Check if measurements fit within the specified ranges
             fit = True
-            for i in range(4):
+            for i in range(2):
                 if not (ranges[i][0] <= measurements[i] <= ranges[i][1]):
                     fit = False
                     break
